@@ -6,21 +6,22 @@ use gio::prelude::*;
 
 use gtk::{Application, Entry};
 
+static LAYOUT_GLADE: &str = include_str!("layout.glade");
+
 fn build_ui(application: &gtk::Application) {
-    let window = gtk::ApplicationWindowBuilder::new()
-                                        .application(application)
-                                        .title("Calculator")
-                                        .border_width(20)
-                                        .window_position(gtk::WindowPosition::Center)
-                                        .default_width(400)
-                                        .default_height(550)
-                                        .build();
+    let builder = gtk::Builder::from_string(LAYOUT_GLADE);
 
-    let entry = Entry::new();
+    let window: gtk::Window = builder.get_object("calculator").unwrap();
+    // let button: gtk::Button = builder.get_object("button1").unwrap();
+    // let dialog: gtk::MessageDialog = builder.get_object("messagedialog1").unwrap();
 
-    window.add(&entry);
+    // button.connect_clicked(move |_| {
+    //     dialog.run();
+    //     dialog.hide();
+    // });
 
     window.show_all();
+    gtk::main();
 }
 
 fn main() {
